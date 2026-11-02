@@ -35,26 +35,40 @@ cd experiments/001_digits_baseline
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+python main.py
 ```
 
-## First task: understand one sample
+For the exact versions used in the recorded run, install `requirements.lock.txt`
+instead of `requirements.txt` in a fresh environment.
 
-Create `main.py` in this directory. Keep it short:
+## What the script does
 
-1. Load the dataset using `load_digits`.
-2. Print the shapes of `data`, `images`, and `target`.
-3. Print the first image's pixel values and its label.
-4. Display that image in grayscale with its label as the title.
+`main.py` loads the data, normalizes pixels, makes a fixed stratified 80/20 split,
+trains a dummy baseline and logistic regression, and prints their accuracy.
+The model is fitted only on the training set.
 
-Run your script with `python main.py` from this directory.
+It saves three figures under `outputs/`, relative to the script's directory:
+
+- `sample.png`: one input image and its label.
+- `confusion_matrix.png`: true labels on rows and predictions on columns;
+  off-diagonal entries are mistakes.
+- `mistakes.png`: up to ten incorrect predictions, with true and predicted labels.
+
+The figures are saved directly, so no interactive plot window is required.
+The model is retrained on each run; this example does not save a model file.
+
+## First reading task: understand one sample
+
+Read the data-loading section of `main.py`. Inspect `digits.images[0]` and
+`digits.target[0]` to connect the pixel values with the label.
 
 Expected shapes are `(1797, 64)`, `(1797, 8, 8)`, and `(1797,)`.
 Before moving on, explain why the first two arrays describe the same images
 and why the label must not become an input feature.
 
-## Following steps
+## Read the training flow
 
-Work through these one at a time after inspecting the data:
+Follow these steps in `main.py` after inspecting the data:
 
 1. Split into 80% training and 20% test data. Use `random_state=42` and
    `stratify=target` to preserve class proportions.
@@ -65,7 +79,7 @@ Work through these one at a time after inspecting the data:
 4. Report training and test accuracy. Compare test accuracy with a
    `DummyClassifier(strategy="most_frequent")` trained on the same training data.
 5. Inspect a confusion matrix and display some misclassified test images.
-6. Record the settings, results, and observations in `NOTES.md`.
+6. Compare your output with the recorded run in `NOTES.md`.
 
 Use training data or a separate validation split to choose settings; reserve the
 test set for evaluation. If you later add a learned transformation such as

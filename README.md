@@ -9,6 +9,7 @@ training, and evaluating models.
 experiments/
   _template/              # Copy this when starting a new experiment
   001_digits_baseline/   # First exercise: handwritten digit classification
+    main.py              # Run training, evaluation, and error visualization
     README.md            # Goal, setup, and implementation steps
     requirements.txt     # Dependencies for this experiment
     NOTES.md             # Observations and results
@@ -34,10 +35,12 @@ cd experiments/001_digits_baseline
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+python main.py
 ```
 
-Then follow [the digit-recognition exercise](experiments/001_digits_baseline/README.md).
-The scaffold contains instructions; you will write the model yourself.
+Read [the digit-recognition walkthrough](experiments/001_digits_baseline/README.md)
+alongside the code. The script prints scores and saves plots in the experiment's
+`outputs/` directory.
 
 ## Adding an experiment
 
